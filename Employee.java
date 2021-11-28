@@ -1,44 +1,33 @@
-package com.company;
+package jdbc;
 
-import java.util.Scanner;
+import java.sql.*;
 
-// encapsulation
-public class
-Employee {
-    private int eid;
-    private String ename;
-
-    public int getEid() {
-        return eid;
-    }
-
-    public void setEid(int eid) {
-        this.eid = eid;
-    }
-
-    public String getEname() {
-        return ename;
-    }
-
-    public void setEname(String ename) {
-        this.ename = ename;
-    }
-}
-
-class Emp {
+public class Employee {
     public static void main(String[] args) {
-        Employee obj = new Employee();
-        Scanner sc = new Scanner(System.in);
-        System.out.println("enter the id of employee");
-        obj.setEid(sc.nextInt());
-        //sc.nextLine();
-        System.out.println("enter name of employee");
-        //obj.setEname(sc.nextLine());
-        obj.setEname(sc.next());
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            String url="jdbc:mysql://localhost:3306/employ";
+            Connection con= DriverManager.getConnection(url,"root","");
 
-        System.out.println("obj id is");
-        System.out.println(obj.getEid());
-        System.out.println("obj name is");
-        System.out.println(obj.getEname());
+            Statement obj=con.createStatement();
+           obj.execute("INSERT INTO edetail (name,id) VALUES ('sandeep','3')");
+           //obj.execute("UPDATE edetail SET id=2 WHERE name='sandeep'");
+            ResultSet rs=obj.executeQuery("select * from edetail");
+            while(rs.next())
+            {
+                System.out.println(rs.getString(1));
+                System.out.println(rs.getInt(2));
+            }
+            con.close();
+        }
+        catch(ClassNotFoundException e)
+        {
+            e.printStackTrace();
+        }
+        catch(SQLException q)
+        {
+            q.printStackTrace();
+        }
     }
+
 }
