@@ -16,7 +16,7 @@ public class Test909 {
     public static void main(String[] args) {
         try(Scanner s=new Scanner(System.in)){
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:/internal marks","root","");
+            Connection con= DriverManager.getConnection("jdbc:mysql://localhost:3306/internal marks","root","");
             PreparedStatement obj=con.prepareStatement("insert into info(Phone_No,Name) values(?,?)");
             int c1=0,c2=0;
             System.out.println("enter phone no");
